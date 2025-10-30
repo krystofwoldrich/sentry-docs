@@ -1,0 +1,76 @@
+[default]
+# Regex patterns to ignore
+extend-ignore-re = [
+  "\\bUE\\b",     # Unreal Engine abbreviation
+  "\\bUE_LOG\\b", # Unreal Engine logging macro
+  "\\bue4\\b",    # Unreal Engine 4
+  "\\bue5\\b",    # Unreal Engine 5
+  "\\bue\\d+\\b", # Any UE version (ue5, ue6, etc.)
+]
+
+# Technical terms and product names that are spelled correctly
+extend-ignore-words = [
+  # .NET ecosystem
+  "Paket", # .NET package manager (legitimate tool)
+  "paket", # .NET package manager CLI command
+
+  # Platform-specific terms
+  "ITMS", # Apple error code prefix (legitimate)
+  "SEH",  # Structured Exception Handling (Windows API)
+  "EDE",  # Cipher name component (3DES_EDE_CBC_SHA)
+
+  # Cloud/Infrastructure
+  "nodejs_als", # Cloudflare compatibility flag (correct spelling)
+  "als",        # Part of nodejs_als flag
+
+  # Common abbreviations in tech docs
+  "DSN",  # Data Source Name (Sentry)
+  "DSNs", # Plural
+]
+
+# Code identifiers that are intentionally "misspelled" or match external systems
+# Note: These should ONLY include cases where the spelling is intentional
+# (e.g., matching an external API/constant name we don't control)
+extend-ignore-identifiers = [
+  "childs",                       # Intentional variable name in mdx-deflist.ts
+  "aso",                          # Intentional variable name in utils.ts
+  "MIGRATED_GETTING_STARTD_DOCS", # Matches actual constant in Sentry backend (external)
+]
+
+[files]
+# Files and patterns to exclude from spell checking
+extend-exclude = [
+  # Design and binary files
+  "*.excalidraw", # Diagram files contain random IDs
+  "*.png",
+  "*.jpg",
+  "*.jpeg",
+  "*.gif",
+  "*.svg",
+  "*.webp",
+
+  # Data and configuration files
+  "*.json",            # JSON files have many false positives
+  "*.lock",            # Package lock files
+  "yarn.lock",         # Yarn lock file
+  "package-lock.json", # NPM lock file
+
+  # Documentation assets
+  "public/_platforms/*.json", # Platform metadata
+  "public/pdfs/*.pdf",        # PDFs can't be edited programmatically
+
+  # Build artifacts and dependencies
+  ".next/**",        # Next.js build output
+  "node_modules/**", # Dependencies
+  "dist/**",         # Distribution builds
+  "build/**",        # Build output
+]
+
+# Additional configuration for specific file types
+[type.json]
+extend-glob = ["*.json"]
+check-file = false
+
+[type.lock]
+extend-glob = ["*.lock", "yarn.lock", "package-lock.json"]
+check-file = false
