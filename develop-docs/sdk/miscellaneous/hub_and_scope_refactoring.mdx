@@ -218,7 +218,7 @@ Here's how the new APIs roughly map to the old-style APIs. In case of `configure
 - If insertion order matters for data we now need some way of sorting when merging data, e.g. to send out an event. For breadcrumbs, we want to send them in insertion order which means we somehow have to keep track of when a breadcrumb was added. When merging data we then sort them and afterwards apply the breadcrumb limit again. A similar problem exists for event processors on scope as well which should also be executed in insertion order.
 - It feels like there should be some easy to use API for forking isolation scope, starting/continuing a trace (and transaction) from incoming headers/metadata which currently doesn't exist.
 - We decided to not deprecate/remove configureScope for Java SDK as it makes it harder for customers to hold a reference to a scope (which they shouldn't). It now has an overload that allows passing in a scope type (global, isolation, current, combined). We have a default scope we write to for the old overload. We do not want to default to combined/merged scope since that would mean you can manipulate a scope you wouldn't expect, e.g. when using `withScope`.
-- For Java SDK we also keep `pushScope` around and added `pushIsolationScope`. We deprecated `popScope` as users should now call `close` on a lifecycle token we hand back in the push methods. The token can also be used as an automaitcally closed resource in a `try` block.
+- For Java SDK we also keep `pushScope` around and added `pushIsolationScope`. We deprecated `popScope` as users should now call `close` on a lifecycle token we hand back in the push methods. The token can also be used as an automatically closed resource in a `try` block.
 
 ---
 
